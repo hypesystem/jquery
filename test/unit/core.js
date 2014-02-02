@@ -963,24 +963,24 @@ test("jQuery.merge()", function() {
 	);
 });
 
-test("jQuery.grep()", function() {
+test("jQuery.filter()", function() {
 	expect(8);
 
 	var searchCriterion = function( value ) {
 		return value % 2 === 0;
 	};
 
-	deepEqual( jQuery.grep( [], searchCriterion ), [], "Empty array" );
-	deepEqual( jQuery.grep( new Array(4), searchCriterion ), [], "Sparse array" );
+	deepEqual( jQuery.filter( [], searchCriterion ), [], "Empty array" );
+	deepEqual( jQuery.filter( new Array(4), searchCriterion ), [], "Sparse array" );
 
-	deepEqual( jQuery.grep( [ 1, 2, 3, 4, 5, 6 ], searchCriterion ), [ 2, 4, 6 ], "Satisfying elements present" );
-	deepEqual( jQuery.grep( [ 1, 3, 5, 7], searchCriterion ), [], "Satisfying elements absent" );
+	deepEqual( jQuery.filter( [ 1, 2, 3, 4, 5, 6 ], searchCriterion ), [ 2, 4, 6 ], "Satisfying elements present" );
+	deepEqual( jQuery.filter( [ 1, 3, 5, 7], searchCriterion ), [], "Satisfying elements absent" );
 
-	deepEqual( jQuery.grep( [ 1, 2, 3, 4, 5, 6 ], searchCriterion, true ), [ 1, 3, 5 ], "Satisfying elements present and grep inverted" );
-	deepEqual( jQuery.grep( [ 1, 3, 5, 7], searchCriterion, true ), [1, 3, 5, 7], "Satisfying elements absent and grep inverted" );
+	deepEqual( jQuery.filter( [ 1, 2, 3, 4, 5, 6 ], searchCriterion, true ), [ 1, 3, 5 ], "Satisfying elements present and filter inverted" );
+	deepEqual( jQuery.filter( [ 1, 3, 5, 7], searchCriterion, true ), [1, 3, 5, 7], "Satisfying elements absent and filter inverted" );
 
-	deepEqual( jQuery.grep( [ 1, 2, 3, 4, 5, 6 ], searchCriterion, false ), [ 2, 4, 6 ], "Satisfying elements present but grep explicitly uninverted" );
-	deepEqual( jQuery.grep( [ 1, 3, 5, 7 ], searchCriterion, false ), [], "Satisfying elements absent and grep explicitly uninverted" );
+	deepEqual( jQuery.filter( [ 1, 2, 3, 4, 5, 6 ], searchCriterion, false ), [ 2, 4, 6 ], "Satisfying elements present but filter explicitly uninverted" );
+	deepEqual( jQuery.filter( [ 1, 3, 5, 7 ], searchCriterion, false ), [], "Satisfying elements absent and filter explicitly uninverted" );
 });
 
 test("jQuery.extend(Object, Object)", function() {

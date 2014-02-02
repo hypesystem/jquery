@@ -10,7 +10,7 @@ var risSimple = /^.[^:#\[\.,]*$/;
 // Implement the identical functionality for filter and not
 function winnow( elements, qualifier, not ) {
 	if ( jQuery.isFunction( qualifier ) ) {
-		return jQuery.grep( elements, function( elem, i ) {
+		return jQuery.filter( elements, function( elem, i ) {
 			/* jshint -W018 */
 			return !!qualifier.call( elem, i, elem ) !== not;
 		});
@@ -18,7 +18,7 @@ function winnow( elements, qualifier, not ) {
 	}
 
 	if ( qualifier.nodeType ) {
-		return jQuery.grep( elements, function( elem ) {
+		return jQuery.filter( elements, function( elem ) {
 			return ( elem === qualifier ) !== not;
 		});
 
@@ -32,7 +32,7 @@ function winnow( elements, qualifier, not ) {
 		qualifier = jQuery.filter( qualifier, elements );
 	}
 
-	return jQuery.grep( elements, function( elem ) {
+	return jQuery.filter( elements, function( elem ) {
 		return ( indexOf.call( qualifier, elem ) >= 0 ) !== not;
 	});
 }
@@ -46,7 +46,7 @@ jQuery.filter = function( expr, elems, not ) {
 
 	return elems.length === 1 && elem.nodeType === 1 ?
 		jQuery.find.matchesSelector( elem, expr ) ? [ elem ] : [] :
-		jQuery.find.matches( expr, jQuery.grep( elems, function( elem ) {
+		jQuery.find.matches( expr, jQuery.filter( elems, function( elem ) {
 			return elem.nodeType === 1;
 		}));
 };

@@ -637,7 +637,7 @@ jQuery.extend({
 		return first;
 	},
 
-	grep: function( elems, callback, inv ) {
+	filter: function( elems, callback, inv ) {
 		var ret = [];
 
 		// Go through the array, only saving the items
@@ -3693,17 +3693,17 @@ var runtil = /Until$/,
 // Implement the identical functionality for filter and not
 var winnow = function( elements, qualifier, keep ) {
 	if ( jQuery.isFunction( qualifier ) ) {
-		return jQuery.grep(elements, function( elem, i ) {
+		return jQuery.filter(elements, function( elem, i ) {
 			return !!qualifier.call( elem, i, elem ) === keep;
 		});
 
 	} else if ( qualifier.nodeType ) {
-		return jQuery.grep(elements, function( elem, i ) {
+		return jQuery.filter(elements, function( elem, i ) {
 			return (elem === qualifier) === keep;
 		});
 
 	} else if ( typeof qualifier === "string" ) {
-		var filtered = jQuery.grep(elements, function( elem ) {
+		var filtered = jQuery.filter(elements, function( elem ) {
 			return elem.nodeType === 1;
 		});
 
@@ -3714,7 +3714,7 @@ var winnow = function( elements, qualifier, keep ) {
 		}
 	}
 
-	return jQuery.grep(elements, function( elem, i ) {
+	return jQuery.filter(elements, function( elem, i ) {
 		return (jQuery.inArray( elem, qualifier ) >= 0) === keep;
 	});
 };
@@ -5904,7 +5904,7 @@ jQuery.extend( jQuery.fx, {
 
 if ( jQuery.expr && jQuery.expr.filters ) {
 	jQuery.expr.filters.animated = function( elem ) {
-		return jQuery.grep(jQuery.timers, function( fn ) {
+		return jQuery.filter(jQuery.timers, function( fn ) {
 			return elem === fn.elem;
 		}).length;
 	};

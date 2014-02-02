@@ -740,7 +740,7 @@ jQuery.extend({
 		return first;
 	},
 
-	grep: function( elems, callback, inv ) {
+	filter: function( elems, callback, inv ) {
 		var retVal,
 			ret = [],
 			i = 0,
@@ -5792,18 +5792,18 @@ function winnow( elements, qualifier, keep ) {
 	qualifier = qualifier || 0;
 
 	if ( jQuery.isFunction( qualifier ) ) {
-		return jQuery.grep(elements, function( elem, i ) {
+		return jQuery.filter(elements, function( elem, i ) {
 			var retVal = !!qualifier.call( elem, i, elem );
 			return retVal === keep;
 		});
 
 	} else if ( qualifier.nodeType ) {
-		return jQuery.grep(elements, function( elem ) {
+		return jQuery.filter(elements, function( elem ) {
 			return ( elem === qualifier ) === keep;
 		});
 
 	} else if ( typeof qualifier === "string" ) {
-		var filtered = jQuery.grep(elements, function( elem ) {
+		var filtered = jQuery.filter(elements, function( elem ) {
 			return elem.nodeType === 1;
 		});
 
@@ -5814,7 +5814,7 @@ function winnow( elements, qualifier, keep ) {
 		}
 	}
 
-	return jQuery.grep(elements, function( elem ) {
+	return jQuery.filter(elements, function( elem ) {
 		return ( jQuery.inArray( elem, qualifier ) >= 0 ) === keep;
 	});
 }
@@ -6523,7 +6523,7 @@ jQuery.extend({
 		// Reset defaultChecked for any radios and checkboxes
 		// about to be appended to the DOM in IE 6/7 (#8060)
 		if ( !jQuery.support.appendChecked ) {
-			jQuery.grep( getAll( nodes, "input" ), fixDefaultChecked );
+			jQuery.filter( getAll( nodes, "input" ), fixDefaultChecked );
 		}
 
 		i = 0;
@@ -9356,7 +9356,7 @@ jQuery.fx.step = {};
 
 if ( jQuery.expr && jQuery.expr.filters ) {
 	jQuery.expr.filters.animated = function( elem ) {
-		return jQuery.grep(jQuery.timers, function( fn ) {
+		return jQuery.filter(jQuery.timers, function( fn ) {
 			return elem === fn.elem;
 		}).length;
 	};

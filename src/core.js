@@ -384,7 +384,7 @@ jQuery.extend({
 		return first;
 	},
 
-	grep: function( elems, callback, invert ) {
+	filter: function( elems, callback, invert ) {
 		var callbackInverse,
 			matches = [],
 			i = 0,
