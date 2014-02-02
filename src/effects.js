@@ -80,24 +80,26 @@ function createFxNow() {
 }
 
 // Generate parameters to create a standard animation
-function genFx( type, includeWidth ) {
+function generateSlideEffectParameters( attributeValue, includeWidth ) {
 	var which,
 		i = 0,
-		attrs = { height: type };
+		attributesToAnimate = { height: attributeValue };
 
 	// if we include width, step value is 1 to do all cssExpand values,
 	// if we don't include width, step value is 2 to skip over Left and Right
+    //TODO: include width should be extracted to a different function
 	includeWidth = includeWidth ? 1 : 0;
 	for ( ; i < 4 ; i += 2 - includeWidth ) {
+        //TODO: cssExpand is a really bad idea!
 		which = cssExpand[ i ];
-		attrs[ "margin" + which ] = attrs[ "padding" + which ] = type;
+		attributesToAnimate[ "margin" + which ] = attributesToAnimate[ "padding" + which ] = attributeValue;
 	}
 
 	if ( includeWidth ) {
-		attrs.opacity = attrs.width = type;
+		attributesToAnimate.opacity = attributesToAnimate.width = attributeValue;
 	}
 
-	return attrs;
+	return attributesToAnimate;
 }
 
 function createTween( value, prop, animation ) {
@@ -569,15 +571,15 @@ jQuery.each([ "toggle", "show", "hide" ], function( i, name ) {
 	jQuery.fn[ name ] = function( speed, easing, callback ) {
 		return speed == null || typeof speed === "boolean" ?
 			cssFn.apply( this, arguments ) :
-			this.animate( genFx( name, true ), speed, easing, callback );
+			this.animate( generateSlideEffectParameters( name, true ), speed, easing, callback );
 	};
 });
 
 // Generate shortcuts for custom animations
 jQuery.each({
-	slideDown: genFx("show"),
-	slideUp: genFx("hide"),
-	slideToggle: genFx("toggle"),
+	slideDown: generateSlideEffectParameters("show"),
+	slideUp: generateSlideEffectParameters("hide"),
+	slideToggle: generateSlideEffectParameters("toggle"),
 	fadeIn: { opacity: "show" },
 	fadeOut: { opacity: "hide" },
 	fadeToggle: { opacity: "toggle" }
